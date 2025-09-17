@@ -20,5 +20,6 @@ jobs:
       - name: Wilco checks
         id: Wilco
         uses: trywilco/actions@main
+        # The 'engine' input specifies the Wilco engine endpoint; set the WILCO_ENGINE_URL secret in your repository settings.
         with:
           engine: ${{ secrets.WILCO_ENGINE_URL }}
