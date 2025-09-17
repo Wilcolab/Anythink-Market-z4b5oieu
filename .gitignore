@@ -1,0 +1,29 @@
+# Build artifacts
+dist/
+build/
+*.log
+
+# Dependencies
+node_modules/
+.npm/
+
+# IDE files
+.idea/
+.vscode/launch.json
+.vscode/tasks.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+*.tmp
+*.temp
+
+# Environment variables (keep settings.json for VS Code configuration)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
