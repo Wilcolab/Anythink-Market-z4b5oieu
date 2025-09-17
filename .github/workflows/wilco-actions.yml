@@ -20,5 +20,24 @@ jobs:
       - name: Wilco checks
         id: Wilco
         uses: trywilco/actions@main
+        # The 'engine' input specifies the Wilco engine endpoint; set the WILCO_ENGINE_URL secret in your repository settings.
+        if: ${{ secrets.WILCO_ENGINE_URL != '' && secrets.WILCO_ENGINE_URL != null }}
         with:
           engine: ${{ secrets.WILCO_ENGINE_URL }}
+      
+      - name: Wilco engine URL not configured
+        if: ${{ secrets.WILCO_ENGINE_URL == '' || secrets.WILCO_ENGINE_URL == null }}
+        run: |
+          echo "⚠️ WILCO_ENGINE_URL secret is not configured."
+          echo "To fix this issue, set the WILCO_ENGINE_URL secret in your repository settings."
+          echo ""
+          echo "Using GitHub CLI:"
+          echo "  gh secret set WILCO_ENGINE_URL --body \"<your-wilco-engine-url>\""
+          echo ""
+          echo "Using GitHub web interface:"
+          echo "  1. Go to Settings → Secrets and variables → Actions"
+          echo "  2. Click 'New repository secret'"
+          echo "  3. Name: WILCO_ENGINE_URL"
+          echo "  4. Value: Your Wilco engine endpoint URL"
+          echo ""
+          echo "The workflow will skip Wilco checks until this secret is configured."
