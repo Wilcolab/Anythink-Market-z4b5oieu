@@ -17,10 +17,20 @@ jobs:
         with:
           secrets: ${{ toJSON(secrets) }}
 
+      - name: Check WILCO_ENGINE_URL secret
+        run: |
+          if [ -z "${{ secrets.WILCO_ENGINE_URL }}" ]; then
+            echo "❌ ERROR: WILCO_ENGINE_URL secret is not set!"
+            echo "📖 Please follow the setup guide in SETUP_WILCO_SECRET.md"
+            echo "🔧 Go to repository Settings > Secrets and variables > Actions"
+            echo "➕ Add a new secret named 'WILCO_ENGINE_URL' with your Wilco engine endpoint"
+            exit 1
+          else
+            echo "✅ WILCO_ENGINE_URL secret is configured"
+          fi
+
       - name: Wilco checks
         id: Wilco
         uses: trywilco/actions@main
-        # The 'engine' input specifies the Wilco engine endpoint; set the WILCO_ENGINE_URL secret in your repository settings.
-          # WARNING: WILCO_ENGINE_URL context might be invalid. Ensure this secret is set in your repository settings.
         with:
           engine: ${{ secrets.WILCO_ENGINE_URL }}
